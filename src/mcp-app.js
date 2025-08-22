@@ -83,6 +83,7 @@ app.post("/mcp", async (req, res) => {
       auditLogMcpRouter,
       metricDatapointMcpRouter,
       anomalyEventMcpRouter,
+      observabilityShareTokenMcpRouter,
       getSessionRouter,
     } = require("mcpLayer")(initialHeaders);
 
@@ -105,6 +106,14 @@ app.post("/mcp", async (req, res) => {
       ),
     );
     anomalyEventMcpRouter.forEach((mcpTool) =>
+      server.tool(
+        mcpTool.name,
+        mcpTool.description,
+        mcpTool.parameters,
+        mcpTool.controller,
+      ),
+    );
+    observabilityShareTokenMcpRouter.forEach((mcpTool) =>
       server.tool(
         mcpTool.name,
         mcpTool.description,

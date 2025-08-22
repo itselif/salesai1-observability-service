@@ -3,4 +3,5 @@ module.exports = {
   auditLogRouter: require("./auditLog"),
   metricDatapointRouter: require("./metricDatapoint"),
   anomalyEventRouter: require("./anomalyEvent"),
+  observabilityShareTokenRouter: require("./observabilityShareToken"),
 };

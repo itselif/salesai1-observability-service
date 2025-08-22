@@ -7,6 +7,10 @@ const {
   getAnomalyEventById,
   getIdListOfAnomalyEventByField,
 } = require("dbLayer");
+const {
+  getObservabilityShareTokenById,
+  getIdListOfObservabilityShareTokenByField,
+} = require("dbLayer");
 const path = require("path");
 const fs = require("fs");
 const { ElasticIndexer } = require("serviceCommon");
@@ -76,6 +80,30 @@ const indexAnomalyEventData = async () => {
   return total;
 };
 
+const indexObservabilityShareTokenData = async () => {
+  const observabilityShareTokenIndexer = new ElasticIndexer(
+    "observabilityShareToken",
+    { isSilent: true },
+  );
+  console.log("Starting to update indexes for ObservabilityShareToken");
+
+  const idList =
+    (await getIdListOfObservabilityShareTokenByField("isActive", true)) ?? [];
+  const chunkSize = 500;
+  let total = 0;
+  for (let i = 0; i < idList.length; i += chunkSize) {
+    const chunk = idList.slice(i, i + chunkSize);
+    const dataList = await getObservabilityShareTokenById(chunk);
+    if (dataList.length) {
+      await observabilityShareTokenIndexer.indexBulkData(dataList);
+      await observabilityShareTokenIndexer.deleteRedisCache();
+    }
+    total += dataList.length;
+  }
+
+  return total;
+};
+
 const syncElasticIndexData = async () => {
   const startTime = new Date();
   console.log("syncElasticIndexData started", startTime);
@@ -115,6 +143,19 @@ const syncElasticIndexData = async () => {
   } catch (err) {
     console.log(
       "Elastic Index Error When Syncing AnomalyEvent data",
+      err.toString(),
+    );
+  }
+
+  try {
+    const dataCount = await indexObservabilityShareTokenData();
+    console.log(
+      "ObservabilityShareToken agregated data is indexed, total observabilityShareTokens:",
+      dataCount,
+    );
+  } catch (err) {
+    console.log(
+      "Elastic Index Error When Syncing ObservabilityShareToken data",
       err.toString(),
     );
   }

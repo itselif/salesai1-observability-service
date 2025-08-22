@@ -58,6 +58,23 @@ const anomalyEventMapping = {
   createdAt: { type: "date" },
   updatedAt: { type: "date" },
 };
+const observabilityShareTokenMapping = {
+  id: { type: "keyword" },
+  _owner: { type: "keyword" },
+  configName: { type: "keyword", index: true },
+  objectName: { type: "keyword", index: true },
+  objectId: { type: "keyword", index: true },
+  ownerId: { type: "keyword", index: true },
+  peopleOption: { type: "keyword", index: true },
+  tokenPermissions: { type: "keyword", index: true },
+  allowedEmails: { type: "keyword", index: true },
+  expireDate: { type: "date", index: true },
+  storeId: { type: "keyword", index: true },
+  isActive: { type: "boolean" },
+  recordVersion: { type: "integer" },
+  createdAt: { type: "date" },
+  updatedAt: { type: "date" },
+};
 
 const updateElasticIndexMappings = async () => {
   try {
@@ -69,6 +86,13 @@ const updateElasticIndexMappings = async () => {
     );
     ElasticIndexer.addMapping("anomalyEvent", anomalyEventMapping);
     await new ElasticIndexer("anomalyEvent").updateMapping(anomalyEventMapping);
+    ElasticIndexer.addMapping(
+      "observabilityShareToken",
+      observabilityShareTokenMapping,
+    );
+    await new ElasticIndexer("observabilityShareToken").updateMapping(
+      observabilityShareTokenMapping,
+    );
   } catch (err) {
     hexaLogger.insertError(
       "UpdateElasticIndexMappingsError",

@@ -19,4 +19,5 @@ module.exports = {
   UpdateAnomalyEventManager: require("./main/anomalyEvent/update-anomalyevent"),
   DeleteAnomalyEventManager: require("./main/anomalyEvent/delete-anomalyevent"),
   ListAnomalyEventsManager: require("./main/anomalyEvent/list-anomalyevents"),
+  // ObservabilityShareToken Db Object
 };

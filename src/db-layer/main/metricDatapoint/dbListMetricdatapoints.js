@@ -1,7 +1,12 @@
 const { DBGetListSequelizeCommand } = require("dbCommand");
 const { sequelize, hexaLogger } = require("common");
 const { Op } = require("sequelize");
-const { AuditLog, MetricDatapoint, AnomalyEvent } = require("models");
+const {
+  AuditLog,
+  MetricDatapoint,
+  AnomalyEvent,
+  ObservabilityShareToken,
+} = require("models");
 
 class DbListMetricdatapointsCommand extends DBGetListSequelizeCommand {
   constructor(input) {

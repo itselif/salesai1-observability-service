@@ -7,6 +7,7 @@ const { hexaLogger } = require("common");
 const AuditLog = require("./auditLog");
 const MetricDatapoint = require("./metricDatapoint");
 const AnomalyEvent = require("./anomalyEvent");
+const ObservabilityShareToken = require("./observabilityShareToken");
 
 AuditLog.prototype.getData = function () {
   const data = this.dataValues;
@@ -91,9 +92,26 @@ AnomalyEvent.prototype.getData = function () {
   return data;
 };
 
+ObservabilityShareToken.prototype.getData = function () {
+  const data = this.dataValues;
+
+  for (const key of Object.keys(data)) {
+    if (key.startsWith("json_")) {
+      data[key] = JSON.parse(data[key]);
+      const newKey = key.slice(5);
+      data[newKey] = data[key];
+      delete data[key];
+    }
+  }
+
+  data._owner = data.ownerId ?? undefined;
+  return data;
+};
+
 module.exports = {
   AuditLog,
   MetricDatapoint,
   AnomalyEvent,
+  ObservabilityShareToken,
   updateElasticIndexMappings,
 };

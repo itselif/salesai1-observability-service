@@ -99,11 +99,13 @@ const {
   auditLogRouter,
   metricDatapointRouter,
   anomalyEventRouter,
+  observabilityShareTokenRouter,
 } = require("restLayer");
 
 app.use("", auditLogRouter);
 app.use("", metricDatapointRouter);
 app.use("", anomalyEventRouter);
+app.use("", observabilityShareTokenRouter);
 
 // swagger
 

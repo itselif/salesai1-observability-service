@@ -6,7 +6,12 @@ const {
   NotFoundError,
 } = require("common");
 
-const { AuditLog, MetricDatapoint, AnomalyEvent } = require("models");
+const {
+  AuditLog,
+  MetricDatapoint,
+  AnomalyEvent,
+  ObservabilityShareToken,
+} = require("models");
 const { Op } = require("sequelize");
 const { sequelize } = require("common");
 

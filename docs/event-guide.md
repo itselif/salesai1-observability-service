@@ -373,6 +373,109 @@ This event announces the deletion of a `anomalyEvent` data object, covering both
 }
 ```
 
+## DbEvent observabilityShareToken-created
+
+**Event topic**: `salesai1-observability-service-dbevent-observabilitysharetoken-created`
+
+This event is triggered upon the creation of a `observabilityShareToken` data object in the database. The event payload encompasses the newly created data, encapsulated within the root of the paylod.
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": true,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## DbEvent observabilityShareToken-updated
+
+**Event topic**: `salesai1-observability-service-dbevent-observabilitysharetoken-updated`
+
+Activation of this event follows the update of a `observabilityShareToken` data object. The payload contains the updated information under the `observabilityShareToken` attribute, along with the original data prior to update, labeled as `old_observabilityShareToken`.
+
+**Event payload**:
+
+```json
+{
+  "old_observabilityShareToken": {
+    "id": "ID",
+    "_owner": "ID",
+    "configName": "String",
+    "objectName": "String",
+    "objectId": "ID",
+    "ownerId": "ID",
+    "peopleOption": "String",
+    "tokenPermissions": null,
+    "allowedEmails": null,
+    "expireDate": "Date",
+    "storeId": "ID",
+    "isActive": true,
+    "recordVersion": "Integer",
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  },
+  "observabilityShareToken": {
+    "id": "ID",
+    "_owner": "ID",
+    "configName": "String",
+    "objectName": "String",
+    "objectId": "ID",
+    "ownerId": "ID",
+    "peopleOption": "String",
+    "tokenPermissions": null,
+    "allowedEmails": null,
+    "expireDate": "Date",
+    "storeId": "ID",
+    "isActive": true,
+    "recordVersion": "Integer",
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  }
+}
+```
+
+## DbEvent observabilityShareToken-deleted
+
+**Event topic**: `salesai1-observability-service-dbevent-observabilitysharetoken-deleted`
+
+This event announces the deletion of a `observabilityShareToken` data object, covering both hard deletions (permanent removal) and soft deletions (where the `isActive` attribute is set to false). Regardless of the deletion type, the event payload will present the data as it was immediately before deletion, highlighting an `isActive` status of false for soft deletions.
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": false,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
 # ElasticSearch Index Events
 
 Within the `Observability` service, most data objects are mirrored in ElasticSearch indices, ensuring these indices remain syncronized with their database counterparts through creation, updates, and deletions. These indices serve dual purposes: they act as a data source for external services and furnish aggregated data tailored to enhance frontend user experiences. Consequently, an ElasticSearch index might encapsulate data in its original form or aggregate additional information from other data objects.
@@ -686,6 +789,108 @@ The payload of a route event mirrors the REST response JSON of the route, provid
 ## Index Event anomalyevent-extended
 
 **Event topic**: `elastic-index-salesai_anomalyevent-extended`
+
+**Event payload**:
+
+```js
+{
+  id: id,
+  extends: {
+    [extendName]: "Object",
+    [extendName + "_count"]: "Number",
+  },
+}
+```
+
+# Route Events
+
+Route events are emitted following the successful execution of a route. While most routes perform CRUD (Create, Read, Update, Delete) operations on data objects, resulting in route events that closely resemble database events, there are distinctions worth noting. A single route execution might trigger multiple CRUD actions and ElasticSearch indexing operations. However, for those primarily concerned with the overarching business logic and its outcomes, listening to the consolidated route event, published once at the conclusion of the route's execution, is more pertinent.
+
+Moreover, routes often deliver aggregated data beyond the primary database object, catering to specific client needs. For instance, creating a data object via a route might not only return the entity's data but also route-specific metrics, such as the executing user's permissions related to the entity. Alternatively, a route might automatically generate default child entities following the creation of a parent object. Consequently, the route event encapsulates a unified dataset encompassing both the parent and its children, in contrast to individual events triggered for each entity created. Therefore, subscribing to route events can offer a richer, more contextually relevant set of information aligned with business logic.
+
+The payload of a route event mirrors the REST response JSON of the route, providing a direct and comprehensive reflection of the data and metadata communicated to the client. This ensures that subscribers to route events receive a payload that encapsulates both the primary data involved and any additional information deemed significant at the business level, facilitating a deeper understanding and integration of the service's functional outcomes.
+
+## Index Event observabilitysharetoken-created
+
+**Event topic**: `elastic-index-salesai_observabilitysharetoken-created`
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": true,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## Index Event observabilitysharetoken-updated
+
+**Event topic**: `elastic-index-salesai_observabilitysharetoken-created`
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": true,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## Index Event observabilitysharetoken-deleted
+
+**Event topic**: `elastic-index-salesai_observabilitysharetoken-deleted`
+
+**Event payload**:
+
+```json
+{
+  "id": "ID",
+  "_owner": "ID",
+  "configName": "String",
+  "objectName": "String",
+  "objectId": "ID",
+  "ownerId": "ID",
+  "peopleOption": "String",
+  "tokenPermissions": null,
+  "allowedEmails": null,
+  "expireDate": "Date",
+  "storeId": "ID",
+  "isActive": true,
+  "recordVersion": "Integer",
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+## Index Event observabilitysharetoken-extended
+
+**Event topic**: `elastic-index-salesai_observabilitysharetoken-extended`
 
 **Event payload**:
 

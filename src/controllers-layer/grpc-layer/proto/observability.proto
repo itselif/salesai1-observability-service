@@ -44,6 +44,19 @@ message anomalyEvent {
     int32 status = 11;
     string reviewedByUserId = 12;
 }
+message observabilityShareToken {
+    string id = 1;
+    string configName = 2;
+    string objectName = 3;
+    string objectId = 4;
+    string ownerId = 5;
+    string peopleOption = 6;
+    string tokenPermissions = 7;
+    string allowedEmails = 8;
+    google.protobuf.Timestamp expireDate = 9;
+    string storeId = 10;
+}
+
 
 
 

@@ -4,5 +4,8 @@ module.exports = (headers) => {
     auditLogMcpRouter: require("./auditLog")(headers),
     metricDatapointMcpRouter: require("./metricDatapoint")(headers),
     anomalyEventMcpRouter: require("./anomalyEvent")(headers),
+    observabilityShareTokenMcpRouter: require("./observabilityShareToken")(
+      headers,
+    ),
   };
 };

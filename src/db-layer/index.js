@@ -60,4 +60,30 @@ module.exports = {
   updateAnomalyEventByQuery: mainFunctions.updateAnomalyEventByQuery,
   deleteAnomalyEventById: mainFunctions.deleteAnomalyEventById,
   deleteAnomalyEventByQuery: mainFunctions.deleteAnomalyEventByQuery,
+
+  // ObservabilityShareToken Db Object
+  createObservabilityShareToken: mainFunctions.createObservabilityShareToken,
+  getIdListOfObservabilityShareTokenByField:
+    mainFunctions.getIdListOfObservabilityShareTokenByField,
+  getObservabilityShareTokenById: mainFunctions.getObservabilityShareTokenById,
+  getObservabilityShareTokenAggById:
+    mainFunctions.getObservabilityShareTokenAggById,
+  getObservabilityShareTokenListByQuery:
+    mainFunctions.getObservabilityShareTokenListByQuery,
+  getObservabilityShareTokenStatsByQuery:
+    mainFunctions.getObservabilityShareTokenStatsByQuery,
+  getObservabilityShareTokenByQuery:
+    mainFunctions.getObservabilityShareTokenByQuery,
+  updateObservabilityShareTokenById:
+    mainFunctions.updateObservabilityShareTokenById,
+  updateObservabilityShareTokenByIdList:
+    mainFunctions.updateObservabilityShareTokenByIdList,
+  updateObservabilityShareTokenByQuery:
+    mainFunctions.updateObservabilityShareTokenByQuery,
+  deleteObservabilityShareTokenById:
+    mainFunctions.deleteObservabilityShareTokenById,
+  deleteObservabilityShareTokenByQuery:
+    mainFunctions.deleteObservabilityShareTokenByQuery,
+  getObservabilityShareTokenByStoreId:
+    mainFunctions.getObservabilityShareTokenByStoreId,
 };

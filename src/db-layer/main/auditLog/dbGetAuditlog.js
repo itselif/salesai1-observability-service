@@ -9,7 +9,12 @@ const {
 } = require("common");
 const { hexaLogger } = require("common");
 
-const { AuditLog, MetricDatapoint, AnomalyEvent } = require("models");
+const {
+  AuditLog,
+  MetricDatapoint,
+  AnomalyEvent,
+  ObservabilityShareToken,
+} = require("models");
 
 const { DBGetSequelizeCommand } = require("dbCommand");
 

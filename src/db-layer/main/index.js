@@ -1,6 +1,7 @@
 const auditLogFunctions = require("./auditLog");
 const metricDatapointFunctions = require("./metricDatapoint");
 const anomalyEventFunctions = require("./anomalyEvent");
+const observabilityShareTokenFunctions = require("./observabilityShareToken");
 
 module.exports = {
   // main Database
@@ -69,4 +70,32 @@ module.exports = {
   updateAnomalyEventByQuery: anomalyEventFunctions.updateAnomalyEventByQuery,
   deleteAnomalyEventById: anomalyEventFunctions.deleteAnomalyEventById,
   deleteAnomalyEventByQuery: anomalyEventFunctions.deleteAnomalyEventByQuery,
+
+  // ObservabilityShareToken Db Object
+  createObservabilityShareToken:
+    observabilityShareTokenFunctions.createObservabilityShareToken,
+  getIdListOfObservabilityShareTokenByField:
+    observabilityShareTokenFunctions.getIdListOfObservabilityShareTokenByField,
+  getObservabilityShareTokenById:
+    observabilityShareTokenFunctions.getObservabilityShareTokenById,
+  getObservabilityShareTokenAggById:
+    observabilityShareTokenFunctions.getObservabilityShareTokenAggById,
+  getObservabilityShareTokenListByQuery:
+    observabilityShareTokenFunctions.getObservabilityShareTokenListByQuery,
+  getObservabilityShareTokenStatsByQuery:
+    observabilityShareTokenFunctions.getObservabilityShareTokenStatsByQuery,
+  getObservabilityShareTokenByQuery:
+    observabilityShareTokenFunctions.getObservabilityShareTokenByQuery,
+  updateObservabilityShareTokenById:
+    observabilityShareTokenFunctions.updateObservabilityShareTokenById,
+  updateObservabilityShareTokenByIdList:
+    observabilityShareTokenFunctions.updateObservabilityShareTokenByIdList,
+  updateObservabilityShareTokenByQuery:
+    observabilityShareTokenFunctions.updateObservabilityShareTokenByQuery,
+  deleteObservabilityShareTokenById:
+    observabilityShareTokenFunctions.deleteObservabilityShareTokenById,
+  deleteObservabilityShareTokenByQuery:
+    observabilityShareTokenFunctions.deleteObservabilityShareTokenByQuery,
+  getObservabilityShareTokenByStoreId:
+    observabilityShareTokenFunctions.getObservabilityShareTokenByStoreId,
 };

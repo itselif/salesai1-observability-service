@@ -1,7 +1,12 @@
 const { HttpServerError, NotFoundError } = require("common");
 const { hexaLogger } = require("common");
 
-const { AuditLog, MetricDatapoint, AnomalyEvent } = require("models");
+const {
+  AuditLog,
+  MetricDatapoint,
+  AnomalyEvent,
+  ObservabilityShareToken,
+} = require("models");
 const { Op } = require("sequelize");
 
 const getAnomalyEventAggById = async (anomalyEventId) => {

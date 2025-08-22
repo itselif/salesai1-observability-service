@@ -3,4 +3,5 @@ module.exports = {
   // AuditLog Db Object
   // MetricDatapoint Db Object
   // AnomalyEvent Db Object
+  // ObservabilityShareToken Db Object
 };
